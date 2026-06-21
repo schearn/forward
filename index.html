@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>Forward — Cinematic Book Trailers</title>
+<!-- Favicon set -->
+<link rel="icon" href="forward_favicon_set/favicon.ico" sizes="any">
+<link rel="icon" href="forward_favicon_set/favicon.svg" type="image/svg+xml">
+<link rel="icon" type="image/png" sizes="32x32" href="forward_favicon_set/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="forward_favicon_set/favicon-16x16.png">
+<link rel="apple-touch-icon" href="forward_favicon_set/apple-touch-icon.png">
+<link rel="manifest" href="forward_favicon_set/site.webmanifest">
+<meta name="theme-color" content="#1b2f52">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -794,7 +802,7 @@ footer .meta{font-family:var(--sans);font-size:12px;color:var(--silverlake);lett
       <p class="price-cond">Ten or more titles across your list.</p>
     </div>
   </div>
-  <p class="price-foot">Every film includes the in-store loop, the jacket QR code and the social cut-downs.<br>Indicative pricing, let's talk about your list.</p>
+  <p class="price-foot">Indicative pricing, let's talk about your list.</p>
 </section>
 
 <!-- ===================== CTA + FORM ===================== -->
@@ -981,6 +989,25 @@ document.querySelectorAll('.gframe').forEach(f=>{
       });
     }else if(links[t]){el.href=links[t];if(t!=='email'){el.target='_blank';}}
   });
+})();
+
+/* ---------- scroll-spy: reflect current section in the URL ---------- */
+(function(){
+  const ids=['top','vision','genres','how','pricing','contact','authors'];
+  const secs=ids.map(id=>document.getElementById(id)).filter(Boolean);
+  let cur='',ticking=false;
+  function spy(){
+    ticking=false;
+    const mark=scrollY+innerHeight*0.38;
+    let active=secs[0];
+    for(const el of secs){ if(el.offsetTop<=mark) active=el; }
+    const id=active.id;
+    if(id===cur) return; cur=id;
+    if(id==='top') history.replaceState(null,'',location.pathname+location.search);
+    else history.replaceState(null,'','#'+id);
+  }
+  addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(spy);}},{passive:true});
+  spy();
 })();
 </script>
 </body>
