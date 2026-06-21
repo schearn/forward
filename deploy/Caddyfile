@@ -1,0 +1,14 @@
+forward.film, www.forward.film {
+    root * /opt/forward
+    file_server
+    encode gzip
+
+    header {
+        Cache-Control "no-cache"
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "SAMEORIGIN"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=()"
+        Strict-Transport-Security "max-age=31536000; includeSubDomains"
+    }
+}
