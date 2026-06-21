@@ -233,8 +233,8 @@ h2.section-title{
 .ship{position:absolute;filter:drop-shadow(0 10px 26px rgba(0,0,0,.55));}
 .ship.s1{left:5%;bottom:18%;width:min(360px,36vw);opacity:.96;}
 .ship.s2{right:7%;bottom:30%;width:min(230px,24vw);opacity:.72;}
-.beach-br{position:absolute;right:0;bottom:0;width:min(460px,42vw);opacity:.92;
-  filter:drop-shadow(0 8px 20px rgba(0,0,0,.45));}
+.beach-br{position:absolute;right:0;bottom:0;width:min(500px,48vw);opacity:1;
+  filter:drop-shadow(0 8px 22px rgba(0,0,0,.5));}
 .lantern{position:absolute;width:9px;height:9px;border-radius:50%;
   background:#ffcf8a;box-shadow:0 0 18px 6px rgba(255,190,120,.75);
   animation:flick 3.2s ease-in-out infinite;}
@@ -256,6 +256,8 @@ h2.section-title{
   filter:drop-shadow(0 0 54px rgba(255,120,30,.45));
   animation:dragon-breathe 5s ease-in-out infinite;}
 @keyframes dragon-breathe{0%,100%{opacity:.84}50%{opacity:.98}}
+.dragon .smk{opacity:0;animation:smk 5.5s ease-in-out infinite;}
+@keyframes smk{0%{opacity:0;transform:translateY(8px)}45%{opacity:.3}100%{opacity:0;transform:translateY(-30px)}}
 .ember{position:absolute;bottom:-12px;width:4px;height:4px;border-radius:50%;
   background:#ffb45a;box-shadow:0 0 8px 2px rgba(255,150,60,.85);
   animation:rise linear infinite;}
@@ -535,22 +537,22 @@ footer .meta{font-family:var(--sans);font-size:12px;color:var(--silverlake);lett
         <path d="M166 58 C194 52 214 56 226 70 L226 150 L166 150 Z" fill="#4a6783"/>
         <path d="M246 72 C268 68 284 72 296 84 L296 150 L246 150 Z" fill="#42607c"/>
       </svg>
-      <!-- beach + palm at bottom right -->
-      <svg class="beach-br" viewBox="0 0 460 320" xmlns="http://www.w3.org/2000/svg">
-        <!-- moonlit sand -->
-        <path d="M70 320 C140 250 260 226 460 234 L460 320 Z" fill="#9c8f6a" opacity=".45"/>
-        <path d="M120 320 C200 270 320 252 460 258 L460 320 Z" fill="#c4b485" opacity=".55"/>
+      <!-- beach + palm at bottom right, raised and brighter -->
+      <svg class="beach-br" viewBox="0 0 460 420" xmlns="http://www.w3.org/2000/svg">
+        <!-- moonlit sand, reaching the bottom -->
+        <path d="M50 420 C150 224 280 188 460 200 L460 420 Z" fill="#b3a474" opacity=".62"/>
+        <path d="M118 420 C214 266 330 232 460 242 L460 420 Z" fill="#d6c692" opacity=".82"/>
         <!-- palm trunk -->
-        <path d="M322 262 C310 206 316 150 336 104 L348 107 C330 152 326 206 336 262 Z" fill="#0c1a29"/>
+        <path d="M316 322 C304 256 310 186 334 128 L348 132 C328 188 324 256 336 322 Z" fill="#0c1a29"/>
         <g fill="#0c1a29">
           <!-- fronds -->
-          <path d="M338 106 C300 84 264 84 234 98 C266 88 306 94 342 114 Z"/>
-          <path d="M338 104 C322 68 298 46 268 32 C300 52 326 78 344 112 Z"/>
-          <path d="M340 104 C356 68 384 48 416 36 C384 54 356 78 346 112 Z"/>
-          <path d="M342 110 C382 92 420 96 448 110 C418 98 378 102 342 118 Z"/>
-          <path d="M340 106 C340 74 352 46 374 26 C356 54 346 82 346 112 Z"/>
+          <path d="M336 130 C294 106 252 106 218 124 C254 112 300 118 340 142 Z"/>
+          <path d="M336 128 C318 86 292 58 258 40 C296 64 326 96 344 138 Z"/>
+          <path d="M338 128 C356 86 388 64 424 48 C388 70 356 96 346 138 Z"/>
+          <path d="M340 134 C386 112 428 116 460 134 C426 118 382 122 340 144 Z"/>
+          <path d="M338 130 C338 92 352 58 378 34 C356 68 346 100 346 138 Z"/>
           <!-- coconuts -->
-          <circle cx="334" cy="116" r="6"/><circle cx="346" cy="118" r="6"/>
+          <circle cx="330" cy="142" r="7"/><circle cx="346" cy="144" r="7"/>
         </g>
       </svg>
       <div class="lantern" style="left:13%;bottom:30%"></div>
@@ -561,41 +563,64 @@ footer .meta{font-family:var(--sans);font-size:12px;color:var(--silverlake);lett
     <div class="g-layer g-fantasy" id="L1">
       <div class="gold-glow"></div>
       <!-- large dragon face looming in the background -->
-      <svg class="dragon" viewBox="0 0 800 760" xmlns="http://www.w3.org/2000/svg">
-        <g fill="#0e0804">
-          <!-- thick back-swept horns -->
-          <path d="M312 232 C258 188 214 132 206 70 C204 52 224 46 240 60 C262 118 312 180 356 222 C342 238 324 240 312 232 Z"/>
-          <path d="M488 232 C542 188 586 132 594 70 C596 52 576 46 560 60 C538 118 488 180 444 222 C458 238 476 240 488 232 Z"/>
-          <!-- secondary horns / brow spikes -->
-          <path d="M330 250 C300 224 280 188 286 150 C300 178 330 212 362 238 Z"/>
-          <path d="M470 250 C500 224 520 188 514 150 C500 178 470 212 438 238 Z"/>
-          <!-- jaw spikes -->
-          <path d="M262 408 L210 386 L266 432 Z"/>
-          <path d="M276 470 L226 466 L282 500 Z"/>
-          <path d="M538 408 L590 386 L534 432 Z"/>
-          <path d="M524 470 L574 466 L518 500 Z"/>
-          <!-- head: angular, tapering to a snout -->
-          <path d="M312 250 C360 214 440 214 488 250 C556 290 576 372 548 442
-            C524 498 470 536 400 580 C330 536 276 498 252 442 C224 372 244 290 312 250 Z"/>
-          <!-- heavy angled brows -->
-          <path d="M300 336 C344 312 396 322 426 356 L404 372 C378 342 340 334 298 356 Z"/>
-          <path d="M500 336 C456 312 404 322 374 356 L396 372 C422 342 460 334 502 356 Z"/>
-          <!-- snout / muzzle -->
-          <path d="M356 448 C380 430 420 430 444 448 C454 472 448 506 400 524 C352 506 346 472 356 448 Z" fill="#0a0603"/>
-          <!-- nostrils -->
-          <path d="M378 466 C368 460 358 466 362 478 C366 488 382 484 378 466 Z" fill="#000"/>
-          <path d="M422 466 C432 460 442 466 438 478 C434 488 418 484 422 466 Z" fill="#000"/>
-          <!-- fangs -->
-          <path d="M372 520 L382 558 L392 520 Z"/>
-          <path d="M408 520 L418 558 L428 520 Z"/>
+      <svg class="dragon" viewBox="0 0 900 860" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="dscale" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#090402"/>
+            <stop offset="0.55" stop-color="#160b06"/>
+            <stop offset="1" stop-color="#3a1d0c"/>
+          </linearGradient>
+          <radialGradient id="deye" cx="0.5" cy="0.45" r="0.62">
+            <stop offset="0" stop-color="#fff1c8"/>
+            <stop offset="0.45" stop-color="#ff9e30"/>
+            <stop offset="1" stop-color="#b4330a"/>
+          </radialGradient>
+          <linearGradient id="dfang" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#e8dab2"/><stop offset="1" stop-color="#9c8556"/>
+          </linearGradient>
+        </defs>
+        <!-- horns, ridges & jaw frills -->
+        <g fill="#0a0503">
+          <path d="M360 300 C312 254 270 192 258 122 C254 98 276 88 292 106 C314 170 360 234 410 286 C394 304 374 310 360 300 Z"/>
+          <path d="M540 300 C588 254 630 192 642 122 C646 98 624 88 608 106 C586 170 540 234 490 286 C506 304 526 310 540 300 Z"/>
+          <path d="M296 168 L280 176 L300 188 Z"/><path d="M316 216 L300 224 L320 236 Z"/>
+          <path d="M604 168 L620 176 L600 188 Z"/><path d="M584 216 L600 224 L580 236 Z"/>
+          <path d="M272 506 L228 492 L280 532 Z"/><path d="M290 562 L248 558 L300 596 Z"/>
+          <path d="M628 506 L672 492 L620 532 Z"/><path d="M610 562 L652 558 L600 596 Z"/>
         </g>
-        <!-- glowing slit eyes, set under the brows -->
-        <path d="M312 372 C336 350 388 352 404 378 C386 402 338 402 312 380 Z" fill="#ff7a18"/>
-        <path d="M488 372 C464 350 412 352 396 378 C414 402 462 402 488 380 Z" fill="#ff7a18"/>
-        <ellipse cx="356" cy="377" rx="8" ry="14" fill="#170a02"/>
-        <ellipse cx="444" cy="377" rx="8" ry="14" fill="#170a02"/>
-        <circle cx="352" cy="369" r="3.5" fill="#ffe0a0"/>
-        <circle cx="440" cy="369" r="3.5" fill="#ffe0a0"/>
+        <!-- head with firelit lower gradient -->
+        <path d="M332 296 C392 250 508 250 568 296 C636 338 660 416 642 488 C628 542 596 586 548 618 C520 666 470 704 450 716 C430 704 380 666 352 618 C304 586 272 542 258 488 C240 416 264 338 332 296 Z" fill="url(#dscale)"/>
+        <!-- deepened crown shadow -->
+        <path d="M332 296 C392 252 508 252 568 296 C520 286 380 286 332 296 Z" fill="#070301" opacity="0.7"/>
+        <!-- heavy brows -->
+        <g fill="#0a0503">
+          <path d="M312 404 C362 372 420 384 452 424 L426 446 C398 408 352 398 306 426 Z"/>
+          <path d="M588 404 C538 372 480 384 448 424 L474 446 C502 408 548 398 594 426 Z"/>
+        </g>
+        <!-- glowing eyes -->
+        <path d="M326 452 C356 426 408 430 430 462 C406 490 352 488 324 462 Z" fill="url(#deye)"/>
+        <path d="M574 452 C544 426 492 430 470 462 C494 490 548 488 576 462 Z" fill="url(#deye)"/>
+        <ellipse cx="366" cy="460" rx="5.5" ry="17" fill="#160802"/>
+        <ellipse cx="534" cy="460" rx="5.5" ry="17" fill="#160802"/>
+        <circle cx="360" cy="450" r="3.5" fill="#fff4d8"/>
+        <circle cx="528" cy="450" r="3.5" fill="#fff4d8"/>
+        <!-- snout ridge + nostrils -->
+        <path d="M444 470 C448 520 448 560 450 600 C452 560 452 520 456 470 Z" fill="#46240f" opacity="0.85"/>
+        <path d="M426 600 C416 592 404 600 410 614 C416 626 434 620 426 600 Z" fill="#000"/>
+        <path d="M474 600 C484 592 496 600 490 614 C484 626 466 620 474 600 Z" fill="#000"/>
+        <!-- fangs -->
+        <path d="M418 648 C420 672 424 690 430 706 C436 690 438 672 440 648 Z" fill="url(#dfang)"/>
+        <path d="M460 648 C462 672 466 690 472 706 C478 690 480 672 482 648 Z" fill="url(#dfang)"/>
+        <!-- firelight rim from below -->
+        <g style="mix-blend-mode:screen">
+          <path d="M356 612 C400 672 500 672 544 612 C520 668 482 700 450 706 C418 700 380 668 356 612 Z" fill="#ff7a18" opacity="0.28"/>
+          <ellipse cx="450" cy="712" rx="150" ry="56" fill="#ff8a2a" opacity="0.22"/>
+        </g>
+        <!-- smoke wisps from the nostrils -->
+        <g fill="#9aa0a6">
+          <path class="smk" d="M420 596 C410 560 426 540 416 510 C414 506 418 502 422 506 C434 540 416 562 426 596 Z"/>
+          <path class="smk" d="M480 596 C490 560 474 540 484 510 C486 506 482 502 478 506 C466 540 484 562 474 596 Z" style="animation-delay:1.6s"/>
+        </g>
       </svg>
     </div>
 
