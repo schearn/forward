@@ -91,6 +91,25 @@ nav.scrolled .wm{font-size:clamp(28px,3.4vw,40px);}
 }
 .nav-cta:hover{background:var(--silver);color:var(--ink);border-color:var(--silver);}
 
+/* ---- StarBorder buttons: silver light travelling the top & bottom edges ---- */
+.starborder{position:relative;display:inline-block;overflow:hidden;border-radius:4px;
+  padding:1px 0;background:transparent;border:none;cursor:pointer;line-height:0;}
+.starborder .sb-g{position:absolute;width:300%;height:50%;border-radius:50%;z-index:0;
+  pointer-events:none;background:radial-gradient(circle,var(--silver),transparent 10%);}
+.starborder .sb-bottom{bottom:-11px;right:-250%;animation:sb-bottom var(--sb-speed,6s) linear infinite alternate;}
+.starborder .sb-top{top:-11px;left:-250%;animation:sb-top var(--sb-speed,6s) linear infinite alternate;}
+.starborder .sb-inner{position:relative;z-index:1;display:block;text-align:center;
+  font-family:var(--sans);font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+  background:linear-gradient(180deg,#16263b,#0c1a2a);border:1px solid rgba(119,141,169,.45);
+  color:var(--silver);border-radius:4px;transition:color .25s,border-color .25s;}
+.starborder:hover .sb-inner{color:#fff;border-color:rgba(207,211,217,.75);}
+@keyframes sb-bottom{0%{transform:translateX(0);opacity:.85}100%{transform:translateX(-100%);opacity:0}}
+@keyframes sb-top{0%{transform:translateX(0);opacity:.85}100%{transform:translateX(100%);opacity:0}}
+.sb-nav .sb-inner{font-size:13px;padding:10px 20px;}
+.sb-form{align-self:flex-start;margin-top:6px;}
+.sb-form .sb-inner{font-size:15px;padding:16px 42px;}
+.sb-form:disabled{opacity:.6;cursor:default;}
+
 /* ============================================================
    HERO
    ============================================================ */
@@ -102,7 +121,26 @@ nav.scrolled .wm{font-size:clamp(28px,3.4vw,40px);}
     radial-gradient(90% 70% at 0% 110%,rgba(27,47,82,.6),transparent 55%),
     linear-gradient(180deg,var(--ink),var(--oxford));
 }
-.hero .stars{position:absolute;inset:0;opacity:.5;pointer-events:none;}
+.hero .stars{position:absolute;inset:0;z-index:1;opacity:.5;pointer-events:none;}
+/* cinematic light rays from the top-right, behind the content */
+.hero .rays{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+  mix-blend-mode:screen;}
+.hero .rays::before,.hero .rays::after{content:"";position:absolute;top:-40%;right:-20%;
+  width:150%;height:185%;transform-origin:top right;filter:blur(7px);}
+.hero .rays::before{
+  background:conic-gradient(from 200deg at 100% 0%,
+    transparent 0deg,
+    rgba(150,200,255,.20) 7deg, transparent 12deg, transparent 19deg,
+    rgba(207,219,231,.14) 23deg, transparent 28deg, transparent 36deg,
+    rgba(150,200,255,.17) 40deg, transparent 46deg, transparent 56deg,
+    rgba(207,219,231,.11) 60deg, transparent 67deg, transparent 120deg);
+  animation:rays-sway 9s ease-in-out infinite;}
+.hero .rays::after{
+  background:conic-gradient(from 206deg at 100% 0%,
+    transparent 12deg, rgba(234,179,8,.10) 16deg, transparent 22deg, transparent 44deg,
+    rgba(234,179,8,.07) 50deg, transparent 57deg, transparent 120deg);
+  animation:rays-sway 11s ease-in-out infinite reverse;}
+@keyframes rays-sway{0%,100%{transform:rotate(-2.5deg);opacity:.55}50%{transform:rotate(2.5deg);opacity:.95}}
 .hero-inner{position:relative;z-index:2;max-width:1000px;}
 .hero .eyebrow{margin-bottom:26px;}
 .hero h1{
@@ -195,10 +233,8 @@ h2.section-title{
 .ship{position:absolute;filter:drop-shadow(0 10px 26px rgba(0,0,0,.55));}
 .ship.s1{left:5%;bottom:18%;width:min(360px,36vw);opacity:.96;}
 .ship.s2{right:7%;bottom:30%;width:min(230px,24vw);opacity:.72;}
-.island{position:absolute;right:3%;top:44%;width:min(330px,32vw);opacity:.9;
-  filter:drop-shadow(0 6px 18px rgba(0,0,0,.5));}
-.beach{position:absolute;left:0;right:0;bottom:0;height:11%;
-  background:linear-gradient(180deg,transparent,rgba(150,138,104,.28));}
+.beach-br{position:absolute;right:0;bottom:0;width:min(460px,42vw);opacity:.92;
+  filter:drop-shadow(0 8px 20px rgba(0,0,0,.45));}
 .lantern{position:absolute;width:9px;height:9px;border-radius:50%;
   background:#ffcf8a;box-shadow:0 0 18px 6px rgba(255,190,120,.75);
   animation:flick 3.2s ease-in-out infinite;}
@@ -215,13 +251,11 @@ h2.section-title{
   animation:pulse 4.5s ease-in-out infinite;}
 @keyframes pulse{0%,100%{opacity:.7;transform:translate(-50%,-50%) scale(1)}
   50%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}}
-.dragon{position:absolute;left:50%;top:46%;width:min(940px,98vw);
-  transform:translate(-50%,-50%);opacity:.96;
-  filter:drop-shadow(0 0 46px rgba(255,120,30,.5));}
-.breath{position:absolute;left:50%;top:50%;width:min(420px,52vw);
-  transform:translate(-86%,-46%);transform-origin:right center;
-  animation:flameflick .2s steps(2) infinite;mix-blend-mode:screen;opacity:.95;}
-@keyframes flameflick{0%{transform:translate(-86%,-46%) scaleY(1)}100%{transform:translate(-86%,-47%) scaleY(1.06)}}
+.dragon{position:absolute;left:50%;top:43%;width:min(680px,82vw);
+  transform:translate(-50%,-50%);opacity:.9;
+  filter:drop-shadow(0 0 54px rgba(255,120,30,.45));
+  animation:dragon-breathe 5s ease-in-out infinite;}
+@keyframes dragon-breathe{0%,100%{opacity:.84}50%{opacity:.98}}
 .ember{position:absolute;bottom:-12px;width:4px;height:4px;border-radius:50%;
   background:#ffb45a;box-shadow:0 0 8px 2px rgba(255,150,60,.85);
   animation:rise linear infinite;}
@@ -272,13 +306,17 @@ h2.section-title{
   font-size:11px;letter-spacing:.05em;color:rgba(255,255,255,.8);}
 
 /* flames licking around the frame, only in fantasy */
-.frame-fx{position:absolute;left:-5%;right:-5%;bottom:-7%;height:46%;z-index:4;
+.frame-fx{position:absolute;inset:-12% -8%;z-index:0;
   opacity:0;transition:opacity .6s ease;pointer-events:none;}
+.genre-frames .gframe{z-index:2;}
 .genre-stage[data-genre="fantasy"] .frame-fx{opacity:1;}
 .genre-stage[data-genre="fantasy"] .gframe.on{
-  box-shadow:0 0 60px rgba(255,110,30,.5),0 30px 80px rgba(0,0,0,.55);
-  border-color:rgba(255,150,70,.55);}
-.fl{position:absolute;bottom:0;
+  box-shadow:0 0 75px rgba(255,110,30,.55),0 30px 80px rgba(0,0,0,.55);
+  border-color:rgba(255,150,70,.5);}
+.frame-fx .glow{position:absolute;inset:5%;border-radius:16px;
+  background:radial-gradient(58% 60% at 50% 52%,rgba(255,140,50,.6),rgba(255,80,12,.24) 54%,transparent 76%);
+  filter:blur(24px);}
+.fl{position:absolute;
   background:radial-gradient(50% 62% at 50% 72%,#ffe98a,#ff7a18 52%,rgba(255,80,10,0) 74%);
   border-radius:50% 50% 46% 46% / 64% 64% 38% 38%;
   filter:blur(.6px);mix-blend-mode:screen;transform-origin:bottom center;
@@ -318,19 +356,6 @@ h2.section-title{
 .chips span:hover{color:#fff;border-color:var(--silver);}
 
 /* ============================================================
-   PROOF (real stills)
-   ============================================================ */
-.proof{background:linear-gradient(180deg,var(--ink),var(--oxford));}
-.proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:54px;}
-.proof-grid .frame{aspect-ratio:16/9;border-radius:4px;overflow:hidden;background:var(--navy);
-  border:1px solid rgba(119,141,169,.25);position:relative;}
-.proof-grid .frame img{width:100%;height:100%;object-fit:cover;}
-.proof-grid .frame .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  font-family:var(--sans);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--silverlake);}
-.proof .cap{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--silverlake);margin-top:22px;}
-
-/* ============================================================
    HOW IT WORKS
    ============================================================ */
 .how{background:var(--ink);}
@@ -361,11 +386,7 @@ h2.section-title{
 .leadform input:focus,.leadform textarea:focus{outline:none;border-color:var(--silver);
   background:rgba(255,255,255,.07);}
 .leadform .hp{position:absolute;left:-9999px;opacity:0;}
-.leadform button{font-family:var(--sans);font-weight:600;font-size:15px;letter-spacing:.03em;
-  padding:16px 40px;background:var(--silver);color:var(--ink);border:none;border-radius:3px;
-  cursor:pointer;transition:.25s;margin-top:4px;}
-.leadform button:hover{background:#fff;transform:translateY(-2px);}
-.leadform button:disabled{opacity:.6;cursor:default;transform:none;}
+.leadform .starborder{align-self:flex-start;margin-top:6px;}
 .formnote{font-family:var(--sans);font-size:13.5px;color:var(--silverlake);min-height:1em;text-align:center;}
 .formok{font-family:var(--serif);font-size:22px;color:#fff;text-align:center;padding:30px 0;line-height:1.4;}
 .author-line{font-family:var(--sans);font-size:13px;color:var(--silverlake);margin-top:42px;letter-spacing:.02em;}
@@ -406,12 +427,16 @@ footer .meta{font-family:var(--sans);font-size:12px;color:var(--silverlake);lett
       <a href="#genres">Genres</a>
       <a href="#how">How it works</a>
     </div>
-    <a class="nav-cta" href="#contact">Get in touch</a>
+    <a class="starborder sb-nav" href="#contact" style="--sb-speed:6s">
+      <span class="sb-g sb-bottom"></span><span class="sb-g sb-top"></span>
+      <span class="sb-inner">Get in touch</span>
+    </a>
   </div>
 </nav>
 
 <!-- ===================== HERO ===================== -->
 <header class="hero" id="top">
+  <div class="rays" aria-hidden="true"></div>
   <canvas class="stars" id="stars"></canvas>
   <div class="hero-inner">
     <div class="eyebrow">Cinematic book trailers</div>
@@ -467,18 +492,6 @@ footer .meta{font-family:var(--sans);font-size:12px;color:var(--silverlake);lett
     <div class="g-layer g-history" id="L0">
       <div class="moon"></div>
       <div class="horizon"></div>
-      <!-- island / Bermuda landfall with palms -->
-      <svg class="island" viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0 168 C60 150 110 150 180 156 C250 162 310 156 360 168 L360 200 L0 200 Z" fill="#0e2236"/>
-        <path d="M0 178 C80 168 150 170 220 174 C290 178 330 176 360 182 L360 200 L0 200 Z" fill="#0a1a2b"/>
-        <!-- palms -->
-        <g fill="#0a1a2b">
-          <rect x="206" y="120" width="5" height="52"/>
-          <path d="M208 122 C188 108 172 108 158 116 C176 110 196 114 208 124 C200 106 188 96 172 94 C190 98 204 110 209 124 C220 106 236 100 252 102 C236 102 220 112 210 124 C228 116 246 118 260 128 C242 118 222 116 208 124 Z"/>
-          <rect x="250" y="132" width="4" height="40"/>
-          <path d="M252 134 C238 124 226 124 216 130 C228 124 244 128 252 136 C246 122 236 116 224 116 C238 118 248 126 253 136 C262 124 274 120 286 122 C274 122 262 128 254 136 Z"/>
-        </g>
-      </svg>
       <div class="sea"><i></i><i></i><i></i></div>
       <!-- ships -->
       <svg class="ship s1" viewBox="0 0 400 270" xmlns="http://www.w3.org/2000/svg">
@@ -503,50 +516,67 @@ footer .meta{font-family:var(--sans);font-size:12px;color:var(--silverlake);lett
         <path d="M166 58 C194 52 214 56 226 70 L226 150 L166 150 Z" fill="#4a6783"/>
         <path d="M246 72 C268 68 284 72 296 84 L296 150 L246 150 Z" fill="#42607c"/>
       </svg>
-      <div class="beach"></div>
+      <!-- beach + palm at bottom right -->
+      <svg class="beach-br" viewBox="0 0 460 320" xmlns="http://www.w3.org/2000/svg">
+        <!-- moonlit sand -->
+        <path d="M70 320 C140 250 260 226 460 234 L460 320 Z" fill="#9c8f6a" opacity=".45"/>
+        <path d="M120 320 C200 270 320 252 460 258 L460 320 Z" fill="#c4b485" opacity=".55"/>
+        <!-- palm trunk -->
+        <path d="M322 262 C310 206 316 150 336 104 L348 107 C330 152 326 206 336 262 Z" fill="#0c1a29"/>
+        <g fill="#0c1a29">
+          <!-- fronds -->
+          <path d="M338 106 C300 84 264 84 234 98 C266 88 306 94 342 114 Z"/>
+          <path d="M338 104 C322 68 298 46 268 32 C300 52 326 78 344 112 Z"/>
+          <path d="M340 104 C356 68 384 48 416 36 C384 54 356 78 346 112 Z"/>
+          <path d="M342 110 C382 92 420 96 448 110 C418 98 378 102 342 118 Z"/>
+          <path d="M340 106 C340 74 352 46 374 26 C356 54 346 82 346 112 Z"/>
+          <!-- coconuts -->
+          <circle cx="334" cy="116" r="6"/><circle cx="346" cy="118" r="6"/>
+        </g>
+      </svg>
       <div class="lantern" style="left:13%;bottom:30%"></div>
-      <div class="lantern" style="right:12%;bottom:38%;animation-delay:.8s"></div>
+      <div class="lantern" style="right:34%;bottom:30%;animation-delay:.8s"></div>
     </div>
 
     <!-- FANTASY layer -->
     <div class="g-layer g-fantasy" id="L1">
       <div class="gold-glow"></div>
-      <!-- fire-breathing dragon: head + neck + wing, breathing left toward the frame -->
-      <svg class="dragon" viewBox="0 0 960 520" xmlns="http://www.w3.org/2000/svg">
-        <g fill="#0d0805">
-          <!-- big wing -->
-          <path d="M620 250 C720 150 840 120 940 150 C880 170 840 196 860 232
-            C812 214 778 236 800 274 C752 256 720 282 742 320 C690 300 656 326 676 366
-            C612 332 566 296 620 250 Z"/>
-          <!-- body + tail -->
-          <path d="M520 300 C560 280 610 270 650 286 C636 330 600 360 556 360
-            C612 392 690 392 742 360 C700 430 600 470 520 430 C548 470 520 510 470 500
-            C500 470 492 430 470 410 C500 380 540 360 520 300 Z"/>
-          <!-- neck up to head -->
-          <path d="M470 410 C420 360 410 300 440 252 C462 218 500 196 470 150
-            C520 176 540 214 524 262 C516 300 486 330 500 376 C492 396 480 404 470 410 Z"/>
-          <!-- head: snout pointing left, open jaw, horn -->
-          <path d="M470 150
-            C430 140 388 160 360 196
-            C338 224 312 244 286 252
-            C306 262 338 262 360 252
-            C342 270 326 284 340 304
-            C362 326 408 322 436 296
-            C468 274 498 236 498 192
-            C498 166 488 154 470 150 Z"/>
-          <!-- swept horn -->
-          <path d="M470 150 C512 116 566 104 612 112 C566 130 524 152 498 178 C492 162 484 152 470 150 Z"/>
+      <!-- large dragon face looming in the background -->
+      <svg class="dragon" viewBox="0 0 800 760" xmlns="http://www.w3.org/2000/svg">
+        <g fill="#0e0804">
+          <!-- thick back-swept horns -->
+          <path d="M312 232 C258 188 214 132 206 70 C204 52 224 46 240 60 C262 118 312 180 356 222 C342 238 324 240 312 232 Z"/>
+          <path d="M488 232 C542 188 586 132 594 70 C596 52 576 46 560 60 C538 118 488 180 444 222 C458 238 476 240 488 232 Z"/>
+          <!-- secondary horns / brow spikes -->
+          <path d="M330 250 C300 224 280 188 286 150 C300 178 330 212 362 238 Z"/>
+          <path d="M470 250 C500 224 520 188 514 150 C500 178 470 212 438 238 Z"/>
+          <!-- jaw spikes -->
+          <path d="M262 408 L210 386 L266 432 Z"/>
+          <path d="M276 470 L226 466 L282 500 Z"/>
+          <path d="M538 408 L590 386 L534 432 Z"/>
+          <path d="M524 470 L574 466 L518 500 Z"/>
+          <!-- head: angular, tapering to a snout -->
+          <path d="M312 250 C360 214 440 214 488 250 C556 290 576 372 548 442
+            C524 498 470 536 400 580 C330 536 276 498 252 442 C224 372 244 290 312 250 Z"/>
+          <!-- heavy angled brows -->
+          <path d="M300 336 C344 312 396 322 426 356 L404 372 C378 342 340 334 298 356 Z"/>
+          <path d="M500 336 C456 312 404 322 374 356 L396 372 C422 342 460 334 502 356 Z"/>
+          <!-- snout / muzzle -->
+          <path d="M356 448 C380 430 420 430 444 448 C454 472 448 506 400 524 C352 506 346 472 356 448 Z" fill="#0a0603"/>
+          <!-- nostrils -->
+          <path d="M378 466 C368 460 358 466 362 478 C366 488 382 484 378 466 Z" fill="#000"/>
+          <path d="M422 466 C432 460 442 466 438 478 C434 488 418 484 422 466 Z" fill="#000"/>
+          <!-- fangs -->
+          <path d="M372 520 L382 558 L392 520 Z"/>
+          <path d="M408 520 L418 558 L428 520 Z"/>
         </g>
-        <!-- eye -->
-        <circle cx="430" cy="200" r="8" fill="#ff9a3a"/>
-      </svg>
-      <!-- breath: fire cone from the dragon's mouth -->
-      <svg class="breath" viewBox="0 0 420 200" xmlns="http://www.w3.org/2000/svg">
-        <path d="M420 100 C320 70 250 78 150 92 C110 80 80 96 70 108 C95 104 120 110 140 116
-          C95 116 70 128 78 144 C112 132 150 134 188 124 C150 142 120 150 96 168
-          C150 150 220 142 300 124 C360 110 396 108 420 100 Z" fill="#ff7a18"/>
-        <path d="M420 100 C340 80 286 86 210 98 C176 90 150 102 142 112 C168 108 192 112 208 118
-          C176 120 158 130 164 142 C196 132 228 132 258 122 C300 110 360 108 420 100 Z" fill="#ffd05a"/>
+        <!-- glowing slit eyes, set under the brows -->
+        <path d="M312 372 C336 350 388 352 404 378 C386 402 338 402 312 380 Z" fill="#ff7a18"/>
+        <path d="M488 372 C464 350 412 352 396 378 C414 402 462 402 488 380 Z" fill="#ff7a18"/>
+        <ellipse cx="356" cy="377" rx="8" ry="14" fill="#170a02"/>
+        <ellipse cx="444" cy="377" rx="8" ry="14" fill="#170a02"/>
+        <circle cx="352" cy="369" r="3.5" fill="#ffe0a0"/>
+        <circle cx="440" cy="369" r="3.5" fill="#ffe0a0"/>
       </svg>
     </div>
 
@@ -562,13 +592,18 @@ footer .meta{font-family:var(--sans);font-size:12px;color:var(--silverlake);lett
     <div class="genre-stage" id="stage">
       <div class="genre-frames">
         <div class="frame-fx" aria-hidden="true">
-          <span class="fl" style="left:4%;width:46px;height:80px;animation-delay:.05s"></span>
-          <span class="fl" style="left:18%;width:60px;height:120px;animation-delay:.22s"></span>
-          <span class="fl" style="left:34%;width:52px;height:96px;animation-delay:.12s"></span>
-          <span class="fl" style="left:50%;width:66px;height:134px;animation-delay:.3s"></span>
-          <span class="fl" style="left:64%;width:50px;height:100px;animation-delay:.08s"></span>
-          <span class="fl" style="left:78%;width:60px;height:122px;animation-delay:.26s"></span>
-          <span class="fl" style="left:90%;width:44px;height:78px;animation-delay:.16s"></span>
+          <span class="glow"></span>
+          <!-- flames rising from below the frame -->
+          <span class="fl" style="left:4%;bottom:-2%;width:54px;height:96px;animation-delay:.05s"></span>
+          <span class="fl" style="left:19%;bottom:-5%;width:70px;height:140px;animation-delay:.22s"></span>
+          <span class="fl" style="left:35%;bottom:-2%;width:58px;height:108px;animation-delay:.12s"></span>
+          <span class="fl" style="left:51%;bottom:-6%;width:74px;height:152px;animation-delay:.3s"></span>
+          <span class="fl" style="left:67%;bottom:-2%;width:58px;height:112px;animation-delay:.08s"></span>
+          <span class="fl" style="left:84%;bottom:-4%;width:66px;height:132px;animation-delay:.26s"></span>
+          <!-- flames over the top edge -->
+          <span class="fl" style="left:12%;top:-3%;width:48px;height:84px;animation-delay:.18s"></span>
+          <span class="fl" style="left:42%;top:-5%;width:56px;height:100px;animation-delay:.34s"></span>
+          <span class="fl" style="left:74%;top:-3%;width:50px;height:88px;animation-delay:.1s"></span>
         </div>
         <div class="gframe on" data-i="0" data-vimeo="1170299981">
           <img src="assets/genre-history.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
@@ -631,18 +666,6 @@ footer .meta{font-family:var(--sans);font-size:12px;color:var(--silverlake);lett
   </div>
 </section>
 
-<!-- ===================== PROOF ===================== -->
-<section class="band proof reveal">
-  <div class="kicker-row"><span class="eyebrow">From our first film</span><span class="rule"></span></div>
-  <h2 class="section-title">Not a concept. Frames from a finished Forward trailer.</h2>
-  <div class="proof-grid">
-    <div class="frame"><img src="assets/still-1.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="ph" style="display:none;">still-1.jpg</div></div>
-    <div class="frame"><img src="assets/still-2.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="ph" style="display:none;">still-2.jpg</div></div>
-    <div class="frame"><img src="assets/still-3.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="ph" style="display:none;">still-3.jpg</div></div>
-  </div>
-  <div class="cap">Virginia &amp; Bermuda — produced by Forward</div>
-</section>
-
 <!-- ===================== HOW IT WORKS ===================== -->
 <section class="band how reveal" id="how">
   <div class="kicker-row"><span class="eyebrow">How it works</span><span class="rule"></span></div>
@@ -671,7 +694,10 @@ footer .meta{font-family:var(--sans);font-size:12px;color:var(--silverlake);lett
     </div>
     <input name="company" placeholder="Publisher or company" aria-label="Publisher or company" autocomplete="organization">
     <textarea name="message" rows="4" required placeholder="Tell us about your list, or just say hello" aria-label="Message"></textarea>
-    <button type="submit">Start the conversation</button>
+    <button class="starborder sb-form" type="submit" style="--sb-speed:5s">
+      <span class="sb-g sb-bottom"></span><span class="sb-g sb-top"></span>
+      <span class="sb-inner">Start the conversation</span>
+    </button>
     <div class="formnote" id="formnote" aria-live="polite"></div>
   </form>
 
