@@ -215,7 +215,7 @@ h2.section-title{
 .genres{position:relative;height:360vh;background:var(--ink);}
 .genre-sticky{
   position:sticky;top:0;height:100vh;overflow:hidden;
-  display:flex;align-items:center;justify-content:center;
+  display:flex;align-items:flex-start;justify-content:center;
 }
 .genre-base{position:absolute;inset:0;transition:background 1.1s ease;
   background:radial-gradient(120% 90% at 50% 50%,var(--oxford),var(--ink));}
@@ -226,7 +226,7 @@ h2.section-title{
   radial-gradient(60% 36% at 50% 10%,rgba(150,170,190,.22),transparent 70%),
   radial-gradient(120% 75% at 50% 125%,rgba(70,98,130,.6),transparent 60%),
   linear-gradient(180deg,#0c1c30 0%,#13283f 52%,#1a3550 100%);}
-.moon{position:absolute;top:10%;left:20%;width:64px;height:64px;border-radius:50%;
+.moon{position:absolute;top:49%;left:31%;width:54px;height:54px;border-radius:50%;
   background:radial-gradient(circle at 38% 36%,#f1f5f8,#aebfcf);
   box-shadow:0 0 70px 16px rgba(207,219,231,.4);opacity:.9;}
 .horizon{position:absolute;left:0;right:0;top:53%;height:1px;
@@ -240,8 +240,8 @@ h2.section-title{
 .sea i:nth-child(3){top:66%;opacity:.6;animation:wave 11s ease-in-out infinite;}
 @keyframes wave{0%,100%{transform:translateX(-3%)}50%{transform:translateX(3%)}}
 .ship{position:absolute;filter:drop-shadow(0 10px 26px rgba(0,0,0,.55));}
-.ship.s1{left:5%;bottom:18%;width:min(360px,36vw);opacity:.96;}
-.ship.s2{right:33%;bottom:44%;width:min(210px,22vw);opacity:.66;}
+.ship.s1{left:5%;bottom:7%;width:min(340px,34vw);opacity:.96;}
+.ship.s2{right:19%;bottom:13%;width:min(190px,20vw);opacity:.6;}
 .beach-br{position:absolute;right:0;bottom:0;width:min(500px,48vw);opacity:1;
   filter:drop-shadow(0 8px 22px rgba(0,0,0,.5));}
 .lantern{position:absolute;width:9px;height:9px;border-radius:50%;
@@ -291,13 +291,15 @@ h2.section-title{
 
 /* ---- centre stage: frame + copy ---- */
 .genre-stage{position:relative;z-index:5;width:100%;max-width:1160px;padding:0 var(--mx);
+  margin-top:clamp(92px,12vh,140px);
   display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,72px);align-items:center;}
 .genre-frames{position:relative;aspect-ratio:16/9;}
 .gframe{position:absolute;inset:0;border-radius:6px;overflow:hidden;cursor:pointer;
   border:1px solid rgba(255,255,255,.16);background:#0c0c10;
   box-shadow:0 30px 80px rgba(0,0,0,.55);opacity:0;transform:scale(.97);
   transition:opacity .7s ease,transform .7s ease,box-shadow .6s ease,border-color .6s ease;}
-.gframe.on{opacity:1;transform:none;}
+.gframe{pointer-events:none;}
+.gframe.on{opacity:1;transform:none;pointer-events:auto;}
 .gframe img{width:100%;height:100%;object-fit:cover;}
 .gframe iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
 .gframe .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
@@ -603,8 +605,8 @@ footer .meta{font-family:var(--sans);font-size:12px;color:var(--silverlake);lett
         <!-- coconuts -->
         <circle cx="330" cy="143" r="7" fill="#3a2a16"/><circle cx="345" cy="145" r="7" fill="#3a2a16"/>
       </svg>
-      <div class="lantern" style="left:13%;bottom:30%"></div>
-      <div class="lantern" style="right:41%;bottom:41%;animation-delay:.8s"></div>
+      <div class="lantern" style="left:13%;bottom:18%"></div>
+      <div class="lantern" style="right:26%;bottom:19%;animation-delay:.8s"></div>
     </div>
 
     <!-- FANTASY layer -->
