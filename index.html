@@ -113,7 +113,7 @@ nav.scrolled .wm{font-size:clamp(28px,3.4vw,40px);}
 .starborder:hover .sb-inner{color:#fff;border-color:rgba(207,211,217,.75);}
 @keyframes sb-bottom{0%{transform:translateX(0);opacity:.85}100%{transform:translateX(-100%);opacity:0}}
 @keyframes sb-top{0%{transform:translateX(0);opacity:.85}100%{transform:translateX(100%);opacity:0}}
-.sb-nav .sb-inner{font-size:13px;padding:10px 20px;}
+.sb-nav .sb-inner{font-size:14px;padding:15px 36px;}
 .sb-form{align-self:flex-start;margin-top:6px;}
 .sb-form .sb-inner{font-size:15px;padding:16px 42px;}
 .sb-form:disabled{opacity:.6;cursor:default;}
@@ -273,6 +273,10 @@ h2.section-title{
   filter:drop-shadow(0 0 54px rgba(255,120,30,.45));
   animation:dragon-breathe 5s ease-in-out infinite;}
 @keyframes dragon-breathe{0%,100%{opacity:.84}50%{opacity:.98}}
+.dragon-img{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);
+  width:min(780px,92vw);max-height:82vh;object-fit:contain;opacity:.9;
+  filter:drop-shadow(0 0 54px rgba(255,120,30,.4));pointer-events:none;
+  animation:dragon-breathe 5s ease-in-out infinite;}
 .dragon .smk{opacity:0;animation:smk 5.5s ease-in-out infinite;}
 @keyframes smk{0%{opacity:0;transform:translateY(8px)}45%{opacity:.3}100%{opacity:0;transform:translateY(-30px)}}
 .ember{position:absolute;bottom:-12px;width:4px;height:4px;border-radius:50%;
@@ -620,8 +624,10 @@ footer .meta{font-family:var(--sans);font-size:12px;color:var(--silverlake);lett
     <!-- FANTASY layer -->
     <div class="g-layer g-fantasy" id="L1">
       <div class="gold-glow"></div>
-      <!-- large dragon face looming in the background -->
-      <svg class="dragon" viewBox="0 0 900 860" xmlns="http://www.w3.org/2000/svg">
+      <!-- drop a detailed dragon at assets/dragon.png (transparent/dark) to replace the SVG below -->
+      <img class="dragon-img" src="assets/dragon.png" alt="" onload="var s=document.getElementById('dragonSvg');if(s)s.style.display='none';" onerror="this.remove();">
+      <!-- large dragon face looming in the background (fallback) -->
+      <svg class="dragon" id="dragonSvg" viewBox="0 0 900 860" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="dscale" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" stop-color="#090402"/>
