@@ -124,23 +124,25 @@ nav.scrolled .wm{font-size:clamp(28px,3.4vw,40px);}
 .hero .stars{position:absolute;inset:0;z-index:1;opacity:.5;pointer-events:none;}
 /* cinematic light rays from the top-right, behind the content */
 .hero .rays{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;
-  mix-blend-mode:screen;}
+  mix-blend-mode:screen;opacity:.6;
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 18%,transparent 52%);
+          mask-image:linear-gradient(180deg,#000 0%,#000 18%,transparent 52%);}
 .hero .rays::before,.hero .rays::after{content:"";position:absolute;top:-40%;right:-20%;
-  width:150%;height:185%;transform-origin:top right;filter:blur(7px);}
+  width:150%;height:185%;transform-origin:top right;filter:blur(8px);}
 .hero .rays::before{
   background:conic-gradient(from 200deg at 100% 0%,
     transparent 0deg,
-    rgba(150,200,255,.20) 7deg, transparent 12deg, transparent 19deg,
-    rgba(207,219,231,.14) 23deg, transparent 28deg, transparent 36deg,
-    rgba(150,200,255,.17) 40deg, transparent 46deg, transparent 56deg,
-    rgba(207,219,231,.11) 60deg, transparent 67deg, transparent 120deg);
+    rgba(150,200,255,.13) 7deg, transparent 12deg, transparent 19deg,
+    rgba(207,219,231,.09) 23deg, transparent 28deg, transparent 36deg,
+    rgba(150,200,255,.11) 40deg, transparent 46deg, transparent 56deg,
+    rgba(207,219,231,.07) 60deg, transparent 67deg, transparent 120deg);
   animation:rays-sway 9s ease-in-out infinite;}
 .hero .rays::after{
   background:conic-gradient(from 206deg at 100% 0%,
-    transparent 12deg, rgba(234,179,8,.10) 16deg, transparent 22deg, transparent 44deg,
-    rgba(234,179,8,.07) 50deg, transparent 57deg, transparent 120deg);
+    transparent 12deg, rgba(234,179,8,.06) 16deg, transparent 22deg, transparent 44deg,
+    rgba(234,179,8,.04) 50deg, transparent 57deg, transparent 120deg);
   animation:rays-sway 11s ease-in-out infinite reverse;}
-@keyframes rays-sway{0%,100%{transform:rotate(-2.5deg);opacity:.55}50%{transform:rotate(2.5deg);opacity:.95}}
+@keyframes rays-sway{0%,100%{transform:rotate(-2.5deg);opacity:.4}50%{transform:rotate(2.5deg);opacity:.68}}
 .hero-inner{position:relative;z-index:2;max-width:1000px;}
 .hero .eyebrow{margin-bottom:26px;}
 .hero h1{
@@ -190,6 +192,13 @@ h2.section-title{
   transition:transform .25s ease,box-shadow .25s ease;}
 .qr-card:hover{transform:translateY(-3px);box-shadow:0 32px 72px rgba(0,0,0,.6);}
 .qr-card img{width:100%;display:block;}
+.book-card{display:block;position:relative;border-radius:8px;overflow:hidden;aspect-ratio:.78;
+  background:var(--navy);border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 26px 64px rgba(0,0,0,.55);transition:transform .25s ease,box-shadow .25s ease;}
+.book-card:hover{transform:translateY(-3px);box-shadow:0 32px 72px rgba(0,0,0,.65);}
+.book-card img{width:100%;height:100%;object-fit:cover;display:block;}
+.bookph{position:absolute;inset:0;display:none;align-items:center;justify-content:center;
+  font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--silverlake);}
 .qr-cap{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
   color:var(--silverlake);text-align:center;margin-top:16px;line-height:1.7;}
 .qr-cap b{color:var(--silver);font-weight:600;}
@@ -365,6 +374,14 @@ h2.section-title{
    HOW IT WORKS
    ============================================================ */
 .how{background:var(--ink);}
+.how-top{display:flex;gap:clamp(34px,5vw,72px);align-items:center;}
+.how-intro{flex:1;min-width:0;}
+.how-lead{font-size:16px;line-height:1.62;color:var(--silverlake);font-weight:300;max-width:46ch;margin-top:22px;}
+.how-image{flex:1;min-width:0;position:relative;border-radius:10px;overflow:hidden;aspect-ratio:4/3;
+  background:var(--oxford);border:1px solid rgba(119,141,169,.2);box-shadow:0 26px 64px rgba(0,0,0,.45);}
+.how-image img{width:100%;height:100%;object-fit:cover;display:block;}
+.imgph{position:absolute;inset:0;display:none;align-items:center;justify-content:center;
+  font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--silverlake);}
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(20px,3vw,44px);margin-top:64px;}
 .step .n{font-family:var(--serif);font-weight:300;font-size:48px;color:var(--steel);line-height:1;
   padding-bottom:18px;border-bottom:1px solid rgba(119,141,169,.28);margin-bottom:18px;}
@@ -422,6 +439,8 @@ footer .meta{font-family:var(--sans);font-size:12px;color:var(--silverlake);lett
   .nav-links{display:none;}
   .pillars,.steps,.proof-grid{grid-template-columns:1fr;}
   .steps{gap:36px;}
+  .how-top{flex-direction:column;align-items:flex-start;gap:34px;}
+  .how-image{width:100%;}
   .vision-intro{flex-direction:column;align-items:flex-start;gap:40px;}
   .vision-qr{width:200px;align-self:center;}
   .genre-stage{grid-template-columns:1fr;gap:24px;}
@@ -479,10 +498,11 @@ footer .meta{font-family:var(--sans);font-size:12px;color:var(--silverlake);lett
         story come to life. The same film loops above the new releases, and travels everywhere the book is sold.</p>
     </div>
     <div class="vision-qr">
-      <a class="qr-card" href="https://vimeo.com/1170299981" target="_blank" rel="noopener">
-        <img src="assets/trailer-qr.svg" alt="Scan to watch the Virginia and Bermuda trailer">
+      <a class="book-card" href="https://vimeo.com/1170299981" target="_blank" rel="noopener">
+        <img src="assets/book-cover.jpg" alt="Virginia and Bermuda by Peter Barrett, the real jacket with a scannable trailer code" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="bookph">book-cover.jpg</div>
       </a>
-      <div class="qr-cap"><b>Scan to watch</b><br>the Virginia &amp; Bermuda trailer</div>
+      <div class="qr-cap"><b>The real jacket.</b><br>Scan the code to watch the trailer</div>
     </div>
   </div>
   <div class="pillars">
@@ -669,21 +689,21 @@ footer .meta{font-family:var(--sans);font-size:12px;color:var(--silverlake);lett
       <div class="genre-copy">
         <div class="gcopy on" data-i="0">
           <div class="genre-label" style="color:#9fb6cc"><span class="eg">Example genre,</span> History</div>
-          <h3>Wrecked on an uncharted reef, they <em>built two ships and sailed on.</em></h3>
-          <p>Storm, salt and lantern light. The founding of Virginia and Bermuda, told as a film a
-            reader can hold in their hand.</p>
+          <h3>Any moment in history, <em>brought to life.</em></h3>
+          <p>We research the period, study the artefacts, paintings and primary sources, and consult
+            specialists where it matters, so every frame rings true.</p>
         </div>
         <div class="gcopy" data-i="1">
           <div class="genre-label" style="color:#e0b066"><span class="eg">Example genre,</span> Fantasy</div>
-          <h3>When the last dragon wakes, <em>thirteen kingdoms will burn.</em></h3>
-          <p>Fire, gold and the clash of armies. Epic fantasy rendered with the scale of a feature
-            trailer, for a fraction of the cost.</p>
+          <h3>Worlds that never existed, <em>made real.</em></h3>
+          <p>We design the creatures, the armies and the magic from your author's vision, rendered
+            with the scale and finish of a feature trailer.</p>
         </div>
         <div class="gcopy" data-i="2">
           <div class="genre-label" style="color:#e8a9b6"><span class="eg">Example genre,</span> Romance</div>
-          <h3>Two strangers, one summer, <em>and a letter never sent.</em></h3>
-          <p>Warm light and longing. The same craft that sells an epic can make a love story ache
-            in sixty seconds.</p>
+          <h3>Emotion over spectacle, <em>in sixty seconds.</em></h3>
+          <p>We find the light, the looks and the longing, and shape a film that makes a love story
+            ache without ever giving the ending away.</p>
         </div>
       </div>
     </div>
@@ -712,8 +732,18 @@ footer .meta{font-family:var(--sans);font-size:12px;color:var(--silverlake);lett
 
 <!-- ===================== HOW IT WORKS ===================== -->
 <section class="band how reveal" id="how">
-  <div class="kicker-row"><span class="eyebrow">How it works</span><span class="rule"></span></div>
-  <h2 class="section-title">From the author's favourite scene to every screen.</h2>
+  <div class="how-top">
+    <div class="how-intro">
+      <div class="kicker-row"><span class="eyebrow">How it works</span><span class="rule"></span></div>
+      <h2 class="section-title">From the author's favourite scene to every screen.</h2>
+      <p class="how-lead">A simple process, and a screen-ready film at the end of it, ready to play
+        above the display pile, scan from the jacket, and travel everywhere the book is sold.</p>
+    </div>
+    <div class="how-image">
+      <img src="assets/bookstore.jpg" alt="The bookshop of the near future: a trailer above every display pile" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="imgph">bookstore.jpg</div>
+    </div>
+  </div>
   <div class="steps">
     <div class="step"><div class="n">1</div><h4>The scene</h4><p>The author shares the moment they love most, or their idea for the trailer.</p></div>
     <div class="step"><div class="n">2</div><h4>The screenplay</h4><p>We shape it into a tight screenplay built for sixty seconds of screen time.</p></div>
