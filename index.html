@@ -625,7 +625,7 @@ footer .meta{font-family:var(--sans);font-size:12px;color:var(--silverlake);lett
     <div class="g-layer g-fantasy" id="L1">
       <div class="gold-glow"></div>
       <!-- drop a detailed dragon at assets/dragon.png (transparent/dark) to replace the SVG below -->
-      <img class="dragon-img" src="assets/dragon.png" alt="" onload="var s=document.getElementById('dragonSvg');if(s)s.style.display='none';" onerror="this.remove();">
+      <img class="dragon-img" src="assets/Dragon.svg" alt="" onload="var s=document.getElementById('dragonSvg');if(s)s.style.display='none';" onerror="this.remove();">
       <!-- large dragon face looming in the background (fallback) -->
       <svg class="dragon" id="dragonSvg" viewBox="0 0 900 860" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -998,23 +998,43 @@ document.querySelectorAll('.gframe').forEach(f=>{
   });
 })();
 
-/* ---------- scroll-spy: reflect current section in the URL ---------- */
+/* ---------- scroll-spy + deep-link: reflect current section in the URL ---------- */
 (function(){
   const ids=['top','vision','genres','how','pricing','contact','authors'];
   const secs=ids.map(id=>document.getElementById(id)).filter(Boolean);
-  let cur='',ticking=false;
-  function spy(){
-    ticking=false;
+  let cur='',ticking=false,ready=false;
+  function current(){
     const mark=scrollY+innerHeight*0.38;
     let active=secs[0];
     for(const el of secs){ if(el.offsetTop<=mark) active=el; }
-    const id=active.id;
+    return active.id;
+  }
+  function spy(){
+    ticking=false;
+    if(!ready) return;                 // don't touch the URL until any incoming deep-link is handled
+    const id=current();
     if(id===cur) return; cur=id;
     if(id==='top') history.replaceState(null,'',location.pathname+location.search);
     else history.replaceState(null,'','#'+id);
   }
   addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(spy);}},{passive:true});
-  spy();
+
+  function jump(id){
+    const el=document.getElementById(id);if(!el)return;
+    const prev=document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior='auto';   // instant for deep-links
+    el.scrollIntoView();
+    document.documentElement.style.scrollBehavior=prev;
+  }
+  function init(){
+    const h=location.hash.replace('#','');
+    if(h && document.getElementById(h)){
+      cur=h; jump(h);
+      setTimeout(function(){jump(h);ready=true;},350);       // re-correct after fonts/images settle
+    } else { cur=current(); ready=true; }
+  }
+  if(document.readyState==='complete') init();
+  else addEventListener('load',init);
 })();
 </script>
 </body>
