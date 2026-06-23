@@ -287,21 +287,20 @@ h2.section-title{
 @keyframes rise{0%{transform:translateY(0) translateX(0);opacity:0}
   10%{opacity:1}90%{opacity:.7}100%{transform:translateY(-105vh) translateX(var(--drift,20px));opacity:0}}
 
-/* ROMANCE -------------------------------------------------- */
-.g-romance{background:
-  radial-gradient(90% 70% at 50% 30%,rgba(214,160,168,.42),transparent 55%),
-  radial-gradient(70% 60% at 60% 90%,rgba(120,90,120,.42),transparent 60%),
-  linear-gradient(180deg,#2a1822 0%,#3a2030 55%,#241a2a 100%);}
-.bokeh{position:absolute;border-radius:50%;filter:blur(2px);
-  background:radial-gradient(circle,rgba(255,225,230,.5),transparent 70%);
-  animation:drift 9s ease-in-out infinite;}
-.petal{position:absolute;top:-24px;width:13px;height:13px;
-  background:linear-gradient(135deg,#f4c9d2,#d98aa0);
-  border-radius:60% 0 60% 0;opacity:.85;
+/* CHILDREN'S ----------------------------------------------- */
+.g-children{background:
+  radial-gradient(95% 70% at 50% 14%,rgba(150,182,214,.32),transparent 58%),
+  linear-gradient(180deg,#16243a 0%,#21364f 52%,#365576 100%);}
+.children-img{position:absolute;left:50%;bottom:0;transform:translateX(-50%);
+  width:min(1600px,104%);height:66%;object-fit:cover;object-position:center 38%;
+  opacity:.5;filter:saturate(.55) brightness(.92);
+  -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 26%,#000 100%);
+          mask-image:linear-gradient(180deg,transparent 0%,#000 26%,#000 100%);
+  pointer-events:none;}
+.snow{position:absolute;top:-12px;border-radius:50%;background:#eef4fb;
   animation:fall linear infinite;}
-@keyframes fall{0%{transform:translateY(-5vh) rotate(0);opacity:0}
-  10%{opacity:.9}100%{transform:translateY(108vh) rotate(540deg) translateX(var(--drift,40px));opacity:.2}}
-@keyframes drift{0%,100%{transform:translateY(0)}50%{transform:translateY(-22px)}}
+@keyframes fall{0%{transform:translateY(-5vh) translateX(0);opacity:0}
+  12%{opacity:.85}100%{transform:translateY(112vh) translateX(var(--drift,30px));opacity:.25}}
 
 /* ---- centre stage: frame + copy ---- */
 .genre-stage{position:relative;z-index:5;width:100%;max-width:clamp(1160px,76vw,1440px);padding:0 clamp(24px,4vw,56px);
@@ -690,12 +689,9 @@ footer .meta{font-family:var(--sans);font-size:12px;color:var(--silverlake);lett
       </svg>
     </div>
 
-    <!-- ROMANCE layer -->
-    <div class="g-layer g-romance" id="L2">
-      <div class="bokeh" style="left:18%;top:30%;width:120px;height:120px"></div>
-      <div class="bokeh" style="right:22%;top:24%;width:80px;height:80px;animation-delay:2s"></div>
-      <div class="bokeh" style="left:30%;bottom:18%;width:150px;height:150px;animation-delay:1s"></div>
-      <div class="bokeh" style="right:14%;bottom:26%;width:90px;height:90px;animation-delay:3s"></div>
+    <!-- CHILDREN'S layer -->
+    <div class="g-layer g-children" id="L2">
+      <img class="children-img" src="assets/children-bg.jpg" alt="">
     </div>
 
     <!-- centre stage -->
@@ -726,9 +722,9 @@ footer .meta{font-family:var(--sans);font-size:12px;color:var(--silverlake);lett
           <span class="badge">e.g. Fantasy</span><span class="runtime">0:46</span><span class="play"></span>
         </div>
         <div class="gframe" data-i="2" data-vimeo="1170299981">
-          <img src="assets/genre-romance.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-          <div class="ph" style="display:none;">assets/genre-romance.jpg</div>
-          <span class="badge">e.g. Romance</span><span class="runtime">0:52</span><span class="play"></span>
+          <img src="assets/genre-children.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="ph" style="display:none;">assets/genre-children.jpg</div>
+          <span class="badge">e.g. Children's</span><span class="runtime">0:40</span><span class="play"></span>
         </div>
       </div>
 
@@ -746,10 +742,10 @@ footer .meta{font-family:var(--sans);font-size:12px;color:var(--silverlake);lett
             with the scale and finish of a feature trailer.</p>
         </div>
         <div class="gcopy" data-i="2">
-          <div class="genre-label" style="color:#e8a9b6"><span class="eg">Example genre,</span> Romance</div>
-          <h3>Emotion over spectacle, <em>in sixty seconds.</em></h3>
-          <p>We find the light, the looks and the longing, and shape a film that makes a love story
-            ache without ever giving the ending away.</p>
+          <div class="genre-label" style="color:#9fd0e6"><span class="eg">Example genre,</span> Children's</div>
+          <h3>Picture books that <em>leap off the page.</em></h3>
+          <p>We bring the artwork to life with gentle motion and warmth, calm enough for story time,
+            and magical enough to make a child point at the screen.</p>
         </div>
       </div>
     </div>
@@ -761,7 +757,7 @@ footer .meta{font-family:var(--sans);font-size:12px;color:var(--silverlake);lett
     <div class="genre-dots" id="dots">
       <button class="on" data-i="0" aria-label="History"></button>
       <button data-i="1" aria-label="Fantasy"></button>
-      <button data-i="2" aria-label="Romance"></button>
+      <button data-i="2" aria-label="Children's"></button>
     </div>
   </div>
 </section>
@@ -897,17 +893,18 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
     requestAnimationFrame(loop);})();
 })();
 
-/* ---------- ember + petal particles ---------- */
+/* ---------- ember + snow particles ---------- */
 function spawn(layer,cls,n,builder){const f=document.getElementById(layer);
   for(let i=0;i<n;i++){const el=document.createElement('div');el.className=cls;builder(el);f.appendChild(el);}}
 spawn('L1','ember',30,el=>{el.style.left=(Math.random()*100)+'%';
   el.style.setProperty('--drift',(Math.random()*80-40)+'px');
   el.style.animationDuration=(4+Math.random()*5)+'s';el.style.animationDelay=(-Math.random()*9)+'s';
   const s=2+Math.random()*4;el.style.width=el.style.height=s+'px';});
-spawn('L2','petal',20,el=>{el.style.left=(Math.random()*100)+'%';
-  el.style.setProperty('--drift',(Math.random()*120-60)+'px');
-  el.style.animationDuration=(7+Math.random()*6)+'s';el.style.animationDelay=(-Math.random()*12)+'s';
-  const s=9+Math.random()*8;el.style.width=el.style.height=s+'px';});
+spawn('L2','snow',38,el=>{el.style.left=(Math.random()*100)+'%';
+  el.style.setProperty('--drift',(Math.random()*60-30)+'px');
+  el.style.animationDuration=(7+Math.random()*7)+'s';el.style.animationDelay=(-Math.random()*12)+'s';
+  const s=3+Math.random()*5;el.style.width=el.style.height=s+'px';
+  el.style.opacity=(0.4+Math.random()*0.5);});
 
 /* ---------- click a frame to play the example trailer ---------- */
 document.querySelectorAll('.gframe').forEach(f=>{
@@ -927,7 +924,7 @@ document.querySelectorAll('.gframe').forEach(f=>{
   const frames=[...document.querySelectorAll('.gframe')];
   const copies=[...document.querySelectorAll('.gcopy')];
   const dots=[...document.querySelectorAll('#dots button')];
-  const names=['history','fantasy','romance'];
+  const names=['history','fantasy','children'];
   const N=3;let active=-1,ticking=false;
   const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 
