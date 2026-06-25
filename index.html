@@ -492,9 +492,58 @@ footer .meta{font-family:var(--sans);font-size:12px;color:var(--silverlake);lett
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;scroll-behavior:auto;}
 }
+
+/* ---- private preview gate ---- */
+#authgate{position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;padding:24px;
+  background:radial-gradient(120% 80% at 80% -10%,rgba(65,90,119,.45),transparent 60%),linear-gradient(180deg,#0D1B2A,#1B263B);}
+#authgate.hidden{display:none;}
+html.locked,body.locked{overflow:hidden;height:100%;}
+#authform{width:min(360px,90vw);display:flex;flex-direction:column;gap:13px;text-align:center;}
+#authform .wm{justify-content:center;font-size:clamp(40px,7vw,52px);margin-bottom:8px;}
+.ag-note{font-family:var(--sans);color:var(--silverlake);font-size:12px;letter-spacing:.22em;text-transform:uppercase;margin-bottom:10px;}
+#authform input{font-family:var(--sans);font-size:15px;color:#fff;background:rgba(255,255,255,.05);
+  border:1px solid rgba(119,141,169,.4);border-radius:4px;padding:13px 16px;text-align:center;}
+#authform input:focus{outline:none;border-color:var(--silver);background:rgba(255,255,255,.08);}
+#authform input::placeholder{color:var(--silverlake);}
+#authform button{font-family:var(--sans);font-weight:600;font-size:14px;letter-spacing:.04em;
+  background:var(--silver);color:var(--ink);border:none;border-radius:4px;padding:14px;cursor:pointer;margin-top:4px;transition:.2s;}
+#authform button:hover{background:#fff;}
+.ag-err{font-family:var(--sans);font-size:13px;color:#d98aa0;min-height:1.1em;letter-spacing:.02em;}
 </style>
 </head>
 <body>
+
+<!-- ===================== PRIVATE PREVIEW GATE ===================== -->
+<div id="authgate">
+  <form id="authform" autocomplete="off">
+    <a class="wm"><span class="wm-text"><span class="lt">For</span><span class="bd">ward</span></span></a>
+    <p class="ag-note">Private preview</p>
+    <input id="agUser" type="text" placeholder="Username" autocomplete="off" autocapitalize="none" spellcheck="false" aria-label="Username">
+    <input id="agPass" type="password" placeholder="Password" autocomplete="off" aria-label="Password">
+    <button type="submit">Enter</button>
+    <div class="ag-err" id="agErr"></div>
+  </form>
+</div>
+<script>
+(function(){
+  var gate=document.getElementById('authgate');
+  var ok=false; try{ok=sessionStorage.getItem('fwd_ok')==='1';}catch(e){}
+  if(ok){gate.classList.add('hidden');}
+  else{document.documentElement.classList.add('locked');document.body.classList.add('locked');}
+  document.getElementById('authform').addEventListener('submit',function(e){
+    e.preventDefault();
+    var u=document.getElementById('agUser').value.trim().toLowerCase();
+    var p=document.getElementById('agPass').value.trim().toLowerCase();
+    if(u==='for'&&p==='ward'){
+      try{sessionStorage.setItem('fwd_ok','1');}catch(e){}
+      gate.classList.add('hidden');
+      document.documentElement.classList.remove('locked');document.body.classList.remove('locked');
+    }else{
+      document.getElementById('agErr').textContent='Sorry, that is not right.';
+    }
+  });
+})();
+</script>
 
 <!-- ===================== NAV ===================== -->
 <nav id="nav">
