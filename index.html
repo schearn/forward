@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>Forward — Cinematic Book Trailers</title>
+<meta name="description" content="Forward turns a book into a thirty to sixty second cinematic trailer. It plays above the display pile, lives as a code on the jacket, and becomes the publisher's social campaign.">
+<meta property="og:title" content="Forward — Cinematic Book Trailers">
+<meta property="og:description" content="One story, every screen. Cinematic trailers for books, from the display pile to social.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://schearn.github.io/forward/">
+<meta property="og:image" content="https://schearn.github.io/forward/assets/bookstore.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <!-- Favicon set -->
 <link rel="icon" href="forward_favicon_set/favicon.ico" sizes="any">
 <link rel="icon" href="forward_favicon_set/favicon.svg" type="image/svg+xml">
@@ -47,6 +54,11 @@ img{display:block;max-width:100%;}
 a{color:inherit;text-decoration:none;}
 ::selection{background:var(--silver);color:var(--ink);}
 ::-moz-selection{background:var(--silver);color:var(--ink);}
+:focus-visible{outline:2px solid var(--silver);outline-offset:3px;border-radius:2px;}
+.skiplink{position:fixed;top:-60px;left:16px;z-index:200000;font-family:var(--sans);font-weight:600;
+  font-size:14px;background:var(--silver);color:var(--ink);padding:12px 20px;border-radius:4px;
+  transition:top .2s ease;}
+.skiplink:focus{top:12px;}
 #vision,#genres,#how,#pricing,#contact{scroll-margin-top:88px;}
 
 .eyebrow{
@@ -108,7 +120,7 @@ nav.scrolled .wm{font-size:clamp(28px,3.4vw,40px);}
   pointer-events:none;background:radial-gradient(circle,var(--silver),transparent 10%);}
 .starborder .sb-bottom{bottom:-11px;right:-250%;animation:sb-bottom var(--sb-speed,6s) linear infinite alternate;}
 .starborder .sb-top{top:-11px;left:-250%;animation:sb-top var(--sb-speed,6s) linear infinite alternate;}
-.starborder .sb-inner{position:relative;z-index:1;display:block;text-align:center;
+.starborder .sb-inner{position:relative;z-index:1;display:block;text-align:center;line-height:1.2;
   font-family:var(--sans);font-weight:600;letter-spacing:.05em;text-transform:uppercase;
   background:linear-gradient(180deg,#16263b,#0c1a2a);border:1px solid rgba(119,141,169,.45);
   color:var(--silver);border-radius:4px;transition:color .25s,border-color .25s;}
@@ -369,9 +381,10 @@ h2.section-title{
 
 .genre-dots{position:absolute;right:var(--mx);top:50%;transform:translateY(-50%);z-index:6;
   display:flex;flex-direction:column;gap:14px;}
-.genre-dots button{width:9px;height:9px;border-radius:50%;border:none;cursor:pointer;
-  background:rgba(255,255,255,.28);transition:.3s;padding:0;}
-.genre-dots button.on{background:#fff;transform:scale(1.35);}
+.genre-dots button{width:26px;height:26px;border-radius:50%;border:none;cursor:pointer;
+  background:radial-gradient(circle,rgba(255,255,255,.28) 0 4.5px,transparent 5px);
+  transition:.3s;padding:0;}
+.genre-dots button.on{background:radial-gradient(circle,#fff 0 4.5px,transparent 5px);transform:scale(1.2);}
 .genre-tag{position:absolute;left:var(--mx);top:40px;z-index:6;max-width:60%;}
 .genre-tag .sub{font-family:var(--sans);font-size:11px;letter-spacing:.06em;
   color:rgba(255,255,255,.6);margin-top:8px;text-transform:none;}
@@ -400,7 +413,7 @@ h2.section-title{
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(20px,3vw,44px);margin-top:64px;}
 .step .n{font-family:var(--serif);font-weight:300;font-size:48px;color:var(--steel);line-height:1;
   padding-bottom:18px;border-bottom:1px solid rgba(119,141,169,.28);margin-bottom:18px;}
-.step h4{font-family:var(--serif);font-weight:400;font-size:clamp(20px,1.7vw,24px);
+.step h3{font-family:var(--serif);font-weight:400;font-size:clamp(20px,1.7vw,24px);
   color:#fff;margin-bottom:12px;letter-spacing:-.01em;}
 .step p{font-size:15px;line-height:1.62;color:var(--silverlake);}
 
@@ -439,7 +452,7 @@ h2.section-title{
 .leadform{max-width:560px;margin:0 auto;text-align:left;display:flex;flex-direction:column;gap:14px;}
 .leadform .frow{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 .leadform input,.leadform textarea{
-  width:100%;font-family:var(--sans);font-size:15px;color:#fff;
+  width:100%;font-family:var(--sans);font-size:16px;color:#fff;
   background:rgba(255,255,255,.04);border:1px solid rgba(119,141,169,.4);
   border-radius:4px;padding:14px 16px;transition:border-color .2s,background .2s;}
 .leadform textarea{resize:vertical;min-height:120px;line-height:1.5;}
@@ -487,10 +500,11 @@ footer .meta{font-family:var(--sans);font-size:12px;color:var(--silverlake);lett
   .gcopy:not(.on){display:none;}
   .genre-dots{display:none;}
   .genre-tag{max-width:80%;}
+  .moon{display:none;}
   .leadform .frow{grid-template-columns:1fr;}
 }
 @media (prefers-reduced-motion:reduce){
-  *{animation:none!important;scroll-behavior:auto;}
+  *{animation:none!important;transition:none!important;scroll-behavior:auto;}
 }
 
 /* ---- private preview gate ---- */
@@ -501,7 +515,7 @@ html.locked,body.locked{overflow:hidden;height:100%;}
 #authform{width:min(360px,90vw);display:flex;flex-direction:column;gap:13px;text-align:center;}
 #authform .wm{justify-content:center;font-size:clamp(40px,7vw,52px);margin-bottom:8px;}
 .ag-note{font-family:var(--sans);color:var(--silverlake);font-size:12px;letter-spacing:.22em;text-transform:uppercase;margin-bottom:10px;}
-#authform input{font-family:var(--sans);font-size:15px;color:#fff;background:rgba(255,255,255,.05);
+#authform input{font-family:var(--sans);font-size:16px;color:#fff;background:rgba(255,255,255,.05);
   border:1px solid rgba(119,141,169,.4);border-radius:4px;padding:13px 16px;text-align:center;}
 #authform input:focus{outline:none;border-color:var(--silver);background:rgba(255,255,255,.08);}
 #authform input::placeholder{color:var(--silverlake);}
@@ -512,6 +526,8 @@ html.locked,body.locked{overflow:hidden;height:100%;}
 </style>
 </head>
 <body>
+
+<a class="skiplink" href="#vision">Skip to content</a>
 
 <!-- ===================== PRIVATE PREVIEW GATE ===================== -->
 <div id="authgate">
@@ -587,7 +603,7 @@ html.locked,body.locked{overflow:hidden;height:100%;}
     </div>
     <div class="vision-qr">
       <a class="book-card" href="https://vimeo.com/1170299981" target="_blank" rel="noopener">
-        <img src="assets/book-cover.jpg" alt="Virginia and Bermuda by Peter Barrett, the real jacket with a scannable trailer code" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <img src="assets/book-cover.jpg" alt="Virginia and Bermuda by Peter Barrett, the real jacket with a scannable trailer code" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
         <div class="bookph">book-cover.jpg</div>
       </a>
       <div class="qr-cap"><b>The real jacket.</b><br>Scan the code to watch the trailer</div>
@@ -740,7 +756,7 @@ html.locked,body.locked{overflow:hidden;height:100%;}
 
     <!-- CHILDREN'S layer -->
     <div class="g-layer g-children" id="L2">
-      <img class="children-img" src="assets/children-bg.jpg" alt="">
+      <img class="children-img" src="assets/children-bg.jpg" alt="" loading="lazy">
     </div>
 
     <!-- centre stage -->
@@ -760,18 +776,18 @@ html.locked,body.locked{overflow:hidden;height:100%;}
           <span class="fl" style="left:42%;top:-5%;width:56px;height:100px;animation-delay:.34s"></span>
           <span class="fl" style="left:74%;top:-3%;width:50px;height:88px;animation-delay:.1s"></span>
         </div>
-        <div class="gframe on" data-i="0" data-vimeo="1170299981">
-          <img src="https://i.vimeocdn.com/video/2129373134-ec9c208c6e68796e2a48774d4471053e92bc22acecf927bc2fb948082bad5975-d_1280x720?region=us" alt="Still from the Virginia and Bermuda trailer" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="gframe on" data-i="0" data-vimeo="1170299981" role="button" tabindex="0" aria-label="Play the History example trailer">
+          <img src="https://i.vimeocdn.com/video/2129373134-ec9c208c6e68796e2a48774d4471053e92bc22acecf927bc2fb948082bad5975-d_1280x720?region=us" alt="Still from the Virginia and Bermuda trailer" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
           <div class="ph" style="display:none;">assets/genre-history.jpg</div>
           <span class="badge">e.g. History</span><span class="runtime">0:58</span><span class="play"></span>
         </div>
-        <div class="gframe" data-i="1" data-vimeo="1170299981">
-          <img src="assets/genre-fantasy.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="gframe" data-i="1" data-vimeo="1170299981" role="button" tabindex="-1" aria-label="Play the Fantasy example trailer">
+          <img src="assets/genre-fantasy.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
           <div class="ph" style="display:none;">assets/genre-fantasy.jpg</div>
           <span class="badge">e.g. Fantasy</span><span class="runtime">0:46</span><span class="play"></span>
         </div>
-        <div class="gframe" data-i="2" data-vimeo="1170299981">
-          <img src="assets/genre-children.jpg" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="gframe" data-i="2" data-vimeo="1170299981" role="button" tabindex="-1" aria-label="Play the Children's example trailer">
+          <img src="assets/genre-children.jpg" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
           <div class="ph" style="display:none;">assets/genre-children.jpg</div>
           <span class="badge">e.g. Children's</span><span class="runtime">0:40</span><span class="play"></span>
         </div>
@@ -821,15 +837,15 @@ html.locked,body.locked{overflow:hidden;height:100%;}
         above the display pile, scan from the jacket, and travel everywhere the book is sold.</p>
     </div>
     <div class="how-image">
-      <img src="assets/bookstore.jpg" alt="The bookshop of the near future: a trailer above every display pile" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <img src="assets/bookstore.jpg" alt="The bookshop of the near future: a trailer above every display pile" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
       <div class="imgph">bookstore.jpg</div>
     </div>
   </div>
   <div class="steps">
-    <div class="step"><div class="n">1</div><h4>The scene</h4><p>The author shares the moment they love most, or their idea for the trailer.</p></div>
-    <div class="step"><div class="n">2</div><h4>The screenplay</h4><p>We shape it into a tight screenplay built for sixty seconds of screen time.</p></div>
-    <div class="step"><div class="n">3</div><h4>The film</h4><p>We produce it, art directed by our team and voiced by a real narrator.</p></div>
-    <div class="step"><div class="n">4</div><h4>Every screen</h4><p>You receive the in-store loop, the jacket QR code, and the social cut-downs.</p></div>
+    <div class="step"><div class="n">1</div><h3>The scene</h3><p>The author shares the moment they love most, or their idea for the trailer.</p></div>
+    <div class="step"><div class="n">2</div><h3>The screenplay</h3><p>We shape it into a tight screenplay built for sixty seconds of screen time.</p></div>
+    <div class="step"><div class="n">3</div><h3>The film</h3><p>We produce it, art directed by our team and voiced by a real narrator.</p></div>
+    <div class="step"><div class="n">4</div><h3>Every screen</h3><p>You receive the in-store loop, the jacket QR code, and the social cut-downs.</p></div>
   </div>
 </section>
 
@@ -957,12 +973,14 @@ spawn('L2','snow',38,el=>{el.style.left=(Math.random()*100)+'%';
 
 /* ---------- click a frame to play the example trailer ---------- */
 document.querySelectorAll('.gframe').forEach(f=>{
-  f.addEventListener('click',()=>{
+  function play(){
     if(f.dataset.played) return;
     f.dataset.played='1';
     const id=f.dataset.vimeo;
     f.innerHTML='<iframe src="https://player.vimeo.com/video/'+id+'?autoplay=1&title=0&byline=0&portrait=0&dnt=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="Forward trailer"></iframe>';
-  });
+  }
+  f.addEventListener('click',play);
+  f.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();play();}});
 });
 
 /* ---------- scroll-driven genre morph ---------- */
@@ -988,7 +1006,7 @@ document.querySelectorAll('.gframe').forEach(f=>{
     if(idx!==active){
       active=idx;
       stage.dataset.genre=names[idx];
-      frames.forEach((f,i)=>f.classList.toggle('on',i===idx));
+      frames.forEach((f,i)=>{f.classList.toggle('on',i===idx);f.setAttribute('tabindex',i===idx?'0':'-1');});
       copies.forEach((c,i)=>c.classList.toggle('on',i===idx));
       dots.forEach((d,i)=>d.classList.toggle('on',i===idx));
     }
